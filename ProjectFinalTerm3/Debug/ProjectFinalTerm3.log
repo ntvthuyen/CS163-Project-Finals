@@ -1,0 +1,10 @@
+﻿  gui.cpp
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(77): warning C4018: '>=': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(150): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(161): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(171): warning C4018: '>': signed/unsigned mismatch
+  history.cpp
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\history.cpp(5): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\history.cpp(46): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  ProjectFinalTerm3.vcxproj -> D:\Code\cs163\Finals\ProjectFinalTerm3\Debug\ProjectFinalTerm3.exe
