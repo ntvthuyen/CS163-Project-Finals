@@ -21,14 +21,32 @@
   <ItemGroup>
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="history.cpp" />
+    <ClCompile Include="Index.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Misc.cpp" />
+    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="RankFunction.cpp" />
+    <ClCompile Include="Searcher.cpp" />
+    <ClCompile Include="SearchFunction.cpp" />
+    <ClCompile Include="SearchResult.cpp" />
     <ClCompile Include="search_activity.cpp" />
+    <ClCompile Include="Synonym.cpp" />
+    <ClCompile Include="Token.cpp" />
     <ClCompile Include="ui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\gui.h" />
     <ClInclude Include="headers\history.h" />
+    <ClInclude Include="headers\Index.h" />
+    <ClInclude Include="headers\Misc.h" />
+    <ClInclude Include="headers\Number.h" />
+    <ClInclude Include="headers\RankFunction.h" />
+    <ClInclude Include="headers\Searcher.h" />
+    <ClInclude Include="headers\SearchFunction.h" />
+    <ClInclude Include="headers\SearchResult.h" />
     <ClInclude Include="headers\search_activity.h" />
+    <ClInclude Include="headers\Synonym.h" />
+    <ClInclude Include="headers\Token.h" />
     <ClInclude Include="ui.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

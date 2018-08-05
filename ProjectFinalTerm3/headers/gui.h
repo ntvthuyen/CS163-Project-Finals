@@ -14,7 +14,9 @@ NTVThuyen
 #include <cstdlib>
 #include "history.h"
 #include <algorithm>
-
+#include "Index.h"
+#include "SearchResult.h"
+#include <fstream>
 typedef int action;
 
 #define CERROR 12
@@ -36,6 +38,7 @@ public:
 	void drawTitle();
 	void cursorPosition(int column, int row);
 	void ShowConsoleCursor(bool showFlag);
+	void setTextColor(int color);
 };
 
 class TextView:public View{
@@ -44,7 +47,6 @@ protected:
 	int column;
 	int row;
 	string text;
-	void setTextColor(int color);
 public:
 	TextView();
 	TextView(int column, int row);
@@ -63,6 +65,10 @@ public:
 class TextField :public TextView {
 public:
 	TextField();
+	void clear() {
+		cursorPosition(column, row);
+		for (int i = 0; i < 95; i++) cout << " ";
+	}
 	void sketch(int color);
 	void setMaxChar(int maxLength);
 protected:
@@ -81,5 +87,19 @@ public:
 	int getSize();
 protected:
 	vector<string> list;
+};
+
+class ListResult : public TextView {
+public:
+	ListResult() {
+		maxChar = 100;
+		column = 2;
+		row = 12;
+	}
+	void print(int column, int row, string path, vector<string> input, int chightlight, int cnormal);
+	void getList(vector<SearchResult> list);
+	void sketch(string input_text, int choose ,Index &index,int color = WHITE, int chightlight = 139, int cchoose = LIGHTBLUE, int ctext = 255);
+protected:
+	vector<SearchResult> list;
 };
 #endif // !_gui_h_

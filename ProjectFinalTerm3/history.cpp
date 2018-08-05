@@ -11,6 +11,7 @@ bool isPrefix(string text, string pattern) {
 /*
 Return 5 most recent query that have "input" as prefix
 */
+
 void logFile(string str, string path) {
 	transform(str.begin(), str.end(), str.begin(), ::tolower);
 	ofstream fout;
@@ -57,4 +58,18 @@ vector<string> getRecent(string input, int resultCount, string path) {
 
 	return res;
 }
-
+vector<string> _getRecent(string path) {
+	vector<string> res;
+	string a;
+	ifstream fin;
+	fin.open(path);
+	if (!fin.is_open()) {
+		res.push_back("Find not found");
+		return res;
+	}
+	for (int i = 0; i < 5 && !fin.eof(); i++) {
+		getline(fin, a);
+		res.push_back(a);
+	}
+	return res;
+}

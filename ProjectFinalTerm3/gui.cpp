@@ -28,7 +28,7 @@ void View::drawTitle() {
 		 << "                                                       _/          " << endl;
 
 }
-void TextView::setTextColor(int color) {
+void View::setTextColor(int color) {
 	HANDLE hConsoleOutput;
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO screen_buffer_info;
@@ -136,9 +136,10 @@ void ListText::setText(vector<string> text) {
 void ListText::deleteList() {
 	for (int i = 0; i < 6; i++) {
 		cursorPosition(column + 1, row + i);
-		cout << "                                                                                                                           ";
+		cout << "                                                                                                                                          ";
 	}
 }
+
 void ListText::setup(TextField tf) {
 	maxChar = tf.getMaxChar();
 	column = tf.getColumn();
@@ -172,4 +173,141 @@ string ListText::getText(int i) {
 		return list[i];
 	}
     return NULL;
+}
+void ListResult::getList(vector<SearchResult> list) {
+	this->list = list;
+}
+void ListResult::print(int column, int row,string path, vector<string> input, int chightlight, int cnormal) {
+	cursorPosition(column, row);
+	bool check = false;
+	string text;
+	string temp;
+	ifstream fin;
+	fin.open(path);
+	getline(fin, text);
+	vector<string> title;
+	int countCh = 0;
+	int _row = 1;
+
+	for (int i = 0; i < text.length(); i++) {
+		if (text[i] != ' ') {
+			temp.push_back(text[i]);
+		}
+		else {
+			title.push_back(temp);
+			temp = "";
+		}
+	}
+	setTextColor(LIGHTBLUE);
+	cout << "<";
+	for (int i = 0; i < title.size(); i++) {
+		check = false;
+		for (int j = 0; j < input.size(); j++) {
+			temp = title[i];
+			transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+			if (temp == input[j]) {
+				setTextColor(chightlight);
+				if (countCh > 100) {
+					_row++;
+					cursorPosition(column, row + _row);
+					countCh = 0;
+				}
+				cout << title[i] << " ";
+				check = true;
+				break;
+			}
+		}
+		if (!check) {
+			setTextColor(cnormal);
+			if (countCh > 100) {
+				_row++;
+				cursorPosition(column, row + _row);
+				countCh = 0;
+			}	
+			cout << title[i] << " ";
+
+		}
+	}
+	setTextColor(LIGHTBLUE);
+	cout << ">";
+	
+	cursorPosition(column, row + _row);
+	setTextColor(cnormal);
+	cout << "...";
+	while (fin >> temp) {
+		for (int j = 0; j < input.size(); j++) {
+			string _temp = temp;
+			transform(_temp.begin(), _temp.end(), _temp.begin(), ::tolower);
+			if (_temp == input[j]) {
+				countCh += temp.length();
+				setTextColor(chightlight);
+				if (countCh > 100) {
+					_row++;
+					cursorPosition(column, row + _row);
+					countCh = 0;
+				}
+				cout << temp << " ";
+				check = true;
+				break;
+			}
+		}
+		if (check) { break; }
+	}
+	for (int i = 0; i <= 30 && !fin.eof(); i++) {
+		fin >> temp;
+		check = false;
+		for (int j = 0; j < input.size(); j++) {
+			string _temp = temp;
+			transform(_temp.begin(), _temp.end(), _temp.begin(), ::tolower);
+			if (_temp == input[j]) {
+				countCh += temp.length();
+				setTextColor(chightlight);
+				if (countCh > 100) {
+					_row++;
+					cursorPosition(column, row + _row);
+					countCh = 0;
+				}	
+				cout << temp << " ";
+				check = true;
+				break;
+			}
+		}
+		if (!check) {
+			setTextColor(cnormal);			
+			countCh += temp.length();
+			if (countCh > 100) {
+				_row++;
+				cursorPosition(column, row + _row);
+				countCh = 0;
+			}
+			cout << temp << " ";
+
+		}
+		
+	}
+	setTextColor(cnormal);
+	cout << "...";
+	fin.close();
+}
+void ListResult::sketch(string input_text, int choose, Index &index, int color, int chightlight, int cchoose, int ctext) {
+	system("CLS");
+	cursorPosition(column, row);
+	vector<string> input;
+	string temp;
+	for (int i = 0; i < input_text.length(); i++) {
+		if (input_text[i] != ' ') {
+			temp.push_back(tolower(input_text[i]));
+		}
+		else {
+			input.push_back(temp);
+			//cout << temp << endl;
+			temp = "";
+		}
+		
+	}input.push_back(temp);
+
+	for (int i = 0; i < list.size(); i++) {
+		int n = list[i].fileIndex;
+		print(column,row + i * 7, index.getFilePath(n), input, chightlight, ctext);
+	}
 }

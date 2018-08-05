@@ -1,10 +1,14 @@
 ﻿  gui.cpp
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\headers\index.h(37): warning C4091: 'static ': ignored on left of 'Index::Node' when no variable is declared
 d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(77): warning C4018: '>=': signed/unsigned mismatch
-d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(150): warning C4018: '<': signed/unsigned mismatch
-d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(161): warning C4018: '<': signed/unsigned mismatch
-d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(171): warning C4018: '>': signed/unsigned mismatch
-  history.cpp
-d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\history.cpp(5): warning C4018: '<': signed/unsigned mismatch
-d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\history.cpp(46): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(151): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(162): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(172): warning C4018: '>': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(192): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(203): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(205): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(238): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(259): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(297): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(309): warning C4018: '<': signed/unsigned mismatch
   ProjectFinalTerm3.vcxproj -> D:\Code\cs163\Finals\ProjectFinalTerm3\Debug\ProjectFinalTerm3.exe
