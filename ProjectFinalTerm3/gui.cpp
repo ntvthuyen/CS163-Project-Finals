@@ -26,7 +26,6 @@ void View::drawTitle() {
 	cout <<	"   |v | _   _  _   _  |    _  _  _   _  _ |_     _  _   _  .  _   _" << endl
 		 << "   | v|(_) |  ||| (_| |   _) (- (_| |  (_ | )   (- | ) (_) | | ) (-" << endl
 		 << "                                                       _/          " << endl;
-
 }
 void View::setTextColor(int color) {
 	HANDLE hConsoleOutput;
@@ -295,12 +294,20 @@ void ListResult::sketch(string input_text, int choose, Index &index, int color, 
 	vector<string> input;
 	string temp;
 	for (int i = 0; i < input_text.length(); i++) {
-		if (input_text[i] != ' ') {
+		if (input_text[i] != ' ' && input_text[i] != '.' &&  input_text[i] != ',') {
+			if (input_text[i] != '"')
 			temp.push_back(tolower(input_text[i]));
 		}
 		else {
 			input.push_back(temp);
 			//cout << temp << endl;
+			input.push_back(temp + ",");
+			input.push_back(temp + ".");
+			input.push_back(temp + "\"");
+			input.push_back(temp + "?");
+			input.push_back(temp + "!");
+			input.push_back(temp + ";");
+
 			temp = "";
 		}
 		
@@ -308,6 +315,25 @@ void ListResult::sketch(string input_text, int choose, Index &index, int color, 
 
 	for (int i = 0; i < list.size(); i++) {
 		int n = list[i].fileIndex;
-		print(column,row + i * 7, index.getFilePath(n), input, chightlight, ctext);
+		print(column,row + i * 7 + 1, index.getFilePath(n), input, chightlight, ctext);
 	}
+}
+void ListResult::draw(int action) {
+	if (list.size() == 0) { 
+		setTextColor(RED);
+		cout << "NO RESULT!";
+		cout << endl << "Press ENTER to back...";
+
+		return; }
+	for (int i = 0; i < list.size(); i++) {
+		cursorPosition(column, row + i * 7);
+		setTextColor(WHITE);
+		cout << "#Number " << i + 1;
+	};
+	cursorPosition(column, row + (action%list.size()) * 7);
+	setTextColor(YELLOW);
+	cout << "#Number " << action + 1;
+}
+int ListResult::getSize() {
+	return list.size();
 }

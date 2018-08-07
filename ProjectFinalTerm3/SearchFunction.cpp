@@ -221,15 +221,12 @@ vector<SearchResult> search(Index &index, Synonym &synonym, const Token &token) 
 		cands = SearchResult::Not(vector<SearchResult>());
 	else {
 		vector<string> exp = split(token.s);
-		bool first = true;
+		cands = SearchResult::Not(vector<SearchResult>());
 		for (string word: exp) {
 			if (word == "*")
 				continue;
-			vector<SearchResult> wordResults = index.getFilesContainWord(simplify(word));
-			if (first)
-				cands = wordResults;
-			else
-				cands = SearchResult::And(cands, wordResults);
+			vector<SearchResult> wordResults = index.getFilesContainWord(simplify(word));			
+			cands = SearchResult::And(cands, wordResults);
 		}		
 	}
 
@@ -252,7 +249,10 @@ vector<SearchResult> search(Index &index, Synonym &synonym, const Token &token) 
 			found = checkHashtag(filePath, token.s);
 			break;
 		case SEARCH:
-			found = exactMatch(filePath, token.s);
+			if (token.s.find(" ") == string::npos)
+				found = true;
+			else
+				found = exactMatch(filePath, token.s);
 			break;
 		case NUMBER_RANGE:
 			found = checkNumbersRange(filePath, token.lo.x, token.hi.x);

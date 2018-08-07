@@ -16,9 +16,10 @@ int main() {
 	w.cursorPosition(25, 7); cout << "LOADING...";
 	w.ShowConsoleCursor(false);
 	Index index;
-	//index.buildIndex("D:\\CS163_Project_Data\\CS163_Project_Data\\");
+	//index.buildIndex("D:\\CS163_Project_Data\\CS163_Project_Data");
 	index.loadIndex();
 	synonym.loadSynonym();
+	SearchResult::fileCount = index.getFileCount();
 	w.cursorPosition(25, 7); cout << "			 ";
 
 	cout << clock() - d;

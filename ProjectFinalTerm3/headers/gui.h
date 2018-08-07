@@ -96,8 +96,10 @@ public:
 		column = 2;
 		row = 12;
 	}
+	int getSize();
 	void print(int column, int row, string path, vector<string> input, int chightlight, int cnormal);
 	void getList(vector<SearchResult> list);
+	void draw(int action);
 	void sketch(string input_text, int choose ,Index &index,int color = WHITE, int chightlight = 139, int cchoose = LIGHTBLUE, int ctext = 255);
 protected:
 	vector<SearchResult> list;

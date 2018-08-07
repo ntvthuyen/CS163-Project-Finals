@@ -7,7 +7,7 @@ double scoreIntitle(string filePath, string key)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	string line;
@@ -43,7 +43,7 @@ double scoreSynonym(string filePath, Synonym & synonym, string key)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	vector<string> synonymSet = synonym.getSynonym(simplify(key));
@@ -59,8 +59,8 @@ double scoreSynonym(string filePath, Synonym & synonym, string key)
 		if (word == "")
 			continue;
 
-		if (binary_search(synonymSet.begin(), synonymSet.end(), word)) 
-			++score;		
+		if (binary_search(synonymSet.begin(), synonymSet.end(), word))
+			++score;
 	}
 
 	fin.close();
@@ -75,7 +75,7 @@ double scoreMatch(string filePath, string key)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	vector<string> pattern = split(key);
@@ -105,13 +105,13 @@ double scoreMatch(string filePath, string key)
 						if (i + k <= text.size()) dp[i + k][j + 1] = true;
 				}
 			}
-			if (dp[i + 1][pattern.size()]) 
+			if (dp[i + 1][pattern.size()])
 				score += 1;
 		}
 	}
 
 	fin.close();
-	return false;
+	return score;
 }
 
 double scoreHashtag(string filePath, string key)
@@ -121,7 +121,7 @@ double scoreHashtag(string filePath, string key)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	//cout << filePath << endl;
@@ -149,7 +149,7 @@ double scoreNumbersRange(string filePath, double l, double r)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	string s;
@@ -157,8 +157,8 @@ double scoreNumbersRange(string filePath, double l, double r)
 	while (fin >> s) {
 		if (!s.empty() && '0' <= s[0] && s[0] <= '9') {
 			Number num = strToNumber(s);
-			if (num.type == NumberType::NORMAL && l <= num.x && num.x <= r) 
-				score += 1;				
+			if (num.type == NumberType::NORMAL && l <= num.x && num.x <= r)
+				score += 1;
 		}
 	}
 
@@ -173,7 +173,7 @@ double scorePricesRange(string filePath, double l, double r)
 
 	if (!fin.is_open()) {
 		cerr << "Can't open file: " << filePath << endl;
-		return false;
+		return 0.0;
 	}
 
 	string s;
@@ -200,12 +200,11 @@ double getTokenScore(string filePath, Synonym & synonym, const Token & token)
 	case FILE_TYPE:
 		return scoreFileType(filePath, token.s);
 	case SYNONYM:
-		return scoreSynonym(filePath, synonym, token.s);		
+		return scoreSynonym(filePath, synonym, token.s);
 	case HASHTAG:
 		return scoreHashtag(filePath, token.s);
 	case SEARCH:
 		return scoreMatch(filePath, token.s);
-		break;
 	case NUMBER_RANGE:
 		return scoreNumbersRange(filePath, token.lo.x, token.hi.x);
 	case PRICE_RANGE:
@@ -226,7 +225,7 @@ double getFileScore(string filePath, Synonym & synonym, const vector<Token>& tok
 			double a = st.top(); st.pop();
 			double b = st.top(); st.pop();
 
-			double c = a+b;
+			double c = a + b;
 
 			st.push(c);
 		}

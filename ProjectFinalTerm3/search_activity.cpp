@@ -75,6 +75,34 @@ void input(TextField &tf, int color) {
 		}
 	}
 }
+void openFile(int action, Index &index, SearchResult rs) {
+	system("CLS");
+	View w;
+	w.setTextColor(YELLOW);
+	cout << "Enter to back..." << endl << endl;
+	ifstream file;
+	file.open(index.getFilePath(rs.fileIndex));
+	cout << "FILE PATH" <<index.getFilePath(rs.fileIndex) <<endl <<endl;
+	w.setTextColor(255);
+	string temp;
+	int length = 0;
+	while (file >> temp) {
+		length += temp.length();
+		if (length > 76) { cout << endl; 
+		length = 0;
+		}
+		cout << temp << " ";
+	}
+	int t;
+	while (true) {
+		t = _getch();
+		if (t == 13) {
+			system("CLS");
+			//_getch();
+			return;
+	}
+	}
+}
 void activity2(string text, Index &index, Synonym &synonym) {
 	system("CLS");
 	ListResult lr;
@@ -89,7 +117,36 @@ void activity2(string text, Index &index, Synonym &synonym) {
 	while (true) {
 		results = processQuery(index, synonym, tf.getText());
 		lr.getList(results);
-		lr.sketch(tf.getText(), 0, index);	
+		lr.sketch(tf.getText(), 0, index);
+		int a;
+		int action = 0;
+		lr.draw(action);
+		do {
+			a = _getch();
+			if (a == 224) {
+				int b = _getch();
+				if (b == 72) {
+					int lrl;
+					lrl = lr.getSize();
+					if (action == 0) action = lrl;
+					action = abs((action - 1) % lrl);
+					lr.draw(action);
+				}
+				if (b == 80) {
+					int lrl;
+					lrl = lr.getSize();
+					action = (action + 1) % lrl;
+					lr.draw(action);
+				}
+			}else
+			if (a == 13) {
+				openFile(action, index, results[action]);
+				_getch();
+			}
+			else {
+				_getch();
+			}
+		} while (a == 224 || a == 13);
 		input(tf, YELLOW);
 	}
 }
