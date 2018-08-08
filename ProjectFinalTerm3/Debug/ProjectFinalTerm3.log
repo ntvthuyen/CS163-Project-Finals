@@ -1,3 +1,15 @@
-﻿  search_activity.cpp
+﻿  gui.cpp
 d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\headers\index.h(37): warning C4091: 'static ': ignored on left of 'Index::Node' when no variable is declared
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(83): warning C4018: '>=': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(159): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(170): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(180): warning C4018: '>': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(200): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(211): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(213): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(246): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(267): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(305): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(328): warning C4018: '<': signed/unsigned mismatch
+d:\code\cs163\finals\projectfinalterm3\projectfinalterm3\gui.cpp(334): warning C4018: '<': signed/unsigned mismatch
   ProjectFinalTerm3.vcxproj -> D:\Code\cs163\Finals\ProjectFinalTerm3\Debug\ProjectFinalTerm3.exe

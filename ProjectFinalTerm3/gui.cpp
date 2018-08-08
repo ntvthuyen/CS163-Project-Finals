@@ -22,10 +22,17 @@ void View::drawTitle() {
 	WORD wAttributes = screen_buffer_info.wAttributes;
 	wAttributes &= 0xfff0; wAttributes |= LIGHTBLUE & 0x000f;
 	SetConsoleTextAttribute(hConsoleOutput, wAttributes);
-	cout << endl << endl;
-	cout <<	"   |v | _   _  _   _  |    _  _  _   _  _ |_     _  _   _  .  _   _" << endl
+	/*cout <<	"   |v | _   _  _   _  |    _  _  _   _  _ |_     _  _   _  .  _   _" << endl
 		 << "   | v|(_) |  ||| (_| |   _) (- (_| |  (_ | )   (- | ) (_) | | ) (-" << endl
 		 << "                                                       _/          " << endl;
+	*/
+	setTextColor(LIGHTBLUE); cout << "##### "; setTextColor(RED); cout << "  #### "; setTextColor(YELLOW); cout << "  ####  "; setTextColor(255); cout << " ######"; setTextColor(GREEN);  cout << "  #### "; setTextColor(255); cout << " ######"; setTextColor(PURPLE); cout << "  #### "; setTextColor(LIGHTBLUE); cout << " ##### "; setTextColor(YELLOW); cout << "  #### "; setTextColor(RED); cout << " ##  ##" << endl;
+	setTextColor(LIGHTBLUE); cout << "##  ##"; setTextColor(RED); cout << " ##  ##"; setTextColor(YELLOW); cout << " ##     "; setTextColor(255); cout << " ##    "; setTextColor(GREEN);  cout << " ##    "; setTextColor(255); cout << " ##    "; setTextColor(PURPLE); cout << " ##  ##";  setTextColor(LIGHTBLUE); cout << " ##  ##"; setTextColor(YELLOW); cout << " ##  ##"; setTextColor(RED); cout << " ##  ##" << endl;
+	setTextColor(LIGHTBLUE); cout << "##  ##"; setTextColor(RED); cout << " ##  ##"; setTextColor(YELLOW); cout << " ##  ###"; setTextColor(255); cout << " ####  "; setTextColor(GREEN);  cout << "  #### "; setTextColor(255); cout << " ####  "; setTextColor(PURPLE); cout << " ######"; setTextColor(LIGHTBLUE); cout << " ##### "; setTextColor(YELLOW); cout << " ##    "; setTextColor(RED); cout << " ######" << endl;
+	setTextColor(LIGHTBLUE); cout << "##  ##"; setTextColor(RED); cout << " ##  ##"; setTextColor(YELLOW); cout << " ##  ## "; setTextColor(255); cout << " ##    "; setTextColor(GREEN);  cout << "     ##"; setTextColor(255); cout << " ##    "; setTextColor(PURPLE); cout << " ##  ##"; setTextColor(LIGHTBLUE); cout << " ##  ##"; setTextColor(YELLOW); cout << " ##  ##"; setTextColor(RED); cout << " ##  ##" << endl;
+	setTextColor(LIGHTBLUE); cout << "##### "; setTextColor(RED); cout << "  #### "; setTextColor(YELLOW); cout << "  ####  "; setTextColor(255); cout << " ######"; setTextColor(GREEN);  cout << "  #### "; setTextColor(255); cout << " ######"; setTextColor(PURPLE); cout << " ##  ##"; setTextColor(LIGHTBLUE); cout << " ##  ##"; setTextColor(YELLOW); cout << "  #### "; setTextColor(RED); cout << " ##  ##" << endl; \
+		setTextColor(WHITE); cout << "wow > such engine > much search > very algorithm > so teamwork > many nice ";
+	setTextColor(LIGHTBLUE);
 }
 void View::setTextColor(int color) {
 	HANDLE hConsoleOutput;
@@ -92,7 +99,7 @@ void TextField::setMaxChar(int maxLength) {
 }
 void TextField::sketch(int color) {
 	setTextColor(color);
-	int right = column + maxChar + 1;
+	int right = column + maxChar + 2;
 	int top = row - 1;
 	int bottom = row + 1;
 	int left = column - 1 ;
@@ -146,6 +153,8 @@ void ListText::setup(TextField tf) {
 }
 void ListText::showList(action action) {
 	if (action > 0) {
+		deleteList();
+		sketch(WHITE);
 		setTextColor(WHITE);
 		for (int i = 0; i < list.size(); i++) {
 			cursorPosition(column, row + i);
@@ -206,7 +215,7 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 			transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
 			if (temp == input[j]) {
 				setTextColor(chightlight);
-				if (countCh > 100) {
+				if (countCh > 85) {
 					_row++;
 					cursorPosition(column, row + _row);
 					countCh = 0;
@@ -218,7 +227,7 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 		}
 		if (!check) {
 			setTextColor(cnormal);
-			if (countCh > 100) {
+			if (countCh > 85) {
 				_row++;
 				cursorPosition(column, row + _row);
 				countCh = 0;
@@ -229,7 +238,7 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 	}
 	setTextColor(LIGHTBLUE);
 	cout << ">";
-	
+	countCh = 3;
 	cursorPosition(column, row + _row);
 	setTextColor(cnormal);
 	cout << "...";
@@ -238,9 +247,9 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 			string _temp = temp;
 			transform(_temp.begin(), _temp.end(), _temp.begin(), ::tolower);
 			if (_temp == input[j]) {
-				countCh += temp.length();
+				countCh += temp.length() + 1;
 				setTextColor(chightlight);
-				if (countCh > 100) {
+				if (countCh > 85) {
 					_row++;
 					cursorPosition(column, row + _row);
 					countCh = 0;
@@ -259,9 +268,9 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 			string _temp = temp;
 			transform(_temp.begin(), _temp.end(), _temp.begin(), ::tolower);
 			if (_temp == input[j]) {
-				countCh += temp.length();
+				countCh += temp.length() + 1;
 				setTextColor(chightlight);
-				if (countCh > 100) {
+				if (countCh > 85) {
 					_row++;
 					cursorPosition(column, row + _row);
 					countCh = 0;
@@ -273,8 +282,8 @@ void ListResult::print(int column, int row,string path, vector<string> input, in
 		}
 		if (!check) {
 			setTextColor(cnormal);			
-			countCh += temp.length();
-			if (countCh > 100) {
+			countCh += temp.length() + 1;
+			if (countCh > 85) {
 				_row++;
 				cursorPosition(column, row + _row);
 				countCh = 0;
@@ -306,7 +315,10 @@ void ListResult::sketch(string input_text, int choose, Index &index, int color, 
 			input.push_back(temp + "\"");
 			input.push_back(temp + "?");
 			input.push_back(temp + "!");
-			input.push_back(temp + ";");
+			input.push_back(temp + ":");
+			input.push_back(temp + ")");
+			input.push_back(temp + "'");
+
 
 			temp = "";
 		}
@@ -319,20 +331,14 @@ void ListResult::sketch(string input_text, int choose, Index &index, int color, 
 	}
 }
 void ListResult::draw(int action) {
-	if (list.size() == 0) { 
-		setTextColor(RED);
-		cout << "NO RESULT!";
-		cout << endl << "Press ENTER to back...";
-
-		return; }
 	for (int i = 0; i < list.size(); i++) {
 		cursorPosition(column, row + i * 7);
 		setTextColor(WHITE);
-		cout << "#Number " << i + 1;
+		cout << "[Number " << i + 1 <<  "]--------------------------------------------------------------------------------------------------------";
 	};
 	cursorPosition(column, row + (action%list.size()) * 7);
-	setTextColor(YELLOW);
-	cout << "#Number " << action + 1;
+	setTextColor(PURPLE);
+	cout << "[Number " << action + 1 << "]--------------------------------------------------------------------------------------------------------";
 }
 int ListResult::getSize() {
 	return list.size();

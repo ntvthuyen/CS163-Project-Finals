@@ -9,7 +9,7 @@ int Index::addWordGetNode(const string & word)
 		it = tree[node].nxt.find(ch);
 		if (it == tree[node].nxt.end()) {
 			tree.push_back(Node());
-			it = tree[node].nxt.insert({ ch, tree.size() - 1}).first;
+			it = tree[node].nxt.insert({ ch, tree.size() - 1 }).first;
 		}
 		node = it->second;
 	}
@@ -78,7 +78,7 @@ void Index::addFromFile(fs::path filePath) {
 		addWord(fileIndex, "#");
 	for (int d = 0; d < 10; ++d) {
 		if (haveDigit[d]) {
-			string digitStr; 
+			string digitStr;
 			digitStr += '0' + d;
 			addWord(fileIndex, digitStr);
 		}
@@ -201,4 +201,40 @@ int Index::getFileCount()
 inline Index::Node::~Node() {
 	nxt.clear();
 	occurence.clear();
+}
+bool Index::checkChange(string dirPath, string inputPath) {
+	ifstream fin;
+	fin.open(inputPath); 
+	if (!fin.is_open()) { 
+		cerr << "File not found: " << inputPath << endl; 
+		return false; 
+	} 
+	string line; 
+	while (getline(fin, line)) { 
+		if (line != "") break; 
+	} 
+	fin.close(); 
+	int oldFileCount; 
+	try { 
+		oldFileCount = stoi(line); 
+	}
+	catch (const std::invalid_argument&) { 
+		cerr << "The first line of " << inputPath << " is not a number." << endl; 
+		return false; 
+	} 
+	fs::path dir(dirPath.c_str()); 
+	int newFileCount = 0; 
+	if (fs::exists(dir) && fs::is_directory(dir)) { 
+		for (const auto &entry : fs::directory_iterator(dir)) { 
+			if (fs::is_regular_file(entry.status())) 
+				++newFileCount; 
+		} 
+	}
+	else { 
+		cerr << "Directory not found: " << dir << endl; 
+		return false; 
+	} 
+	if (oldFileCount == newFileCount) 
+		return false; 
+	return true;
 }

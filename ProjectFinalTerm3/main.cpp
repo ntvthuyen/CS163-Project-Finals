@@ -4,8 +4,9 @@
 #include "headers/Synonym.h"
 #include <ctime>
 int main() {
-	clock_t d;
-	d = clock();
+	//clock_t d;
+	//d = clock();
+	
 	View w;	
 	Synonym synonym;
 	w.drawTitle();
@@ -15,18 +16,24 @@ int main() {
 	w.cursorPosition(10, 23); cout << "Pham Minh Tuan";
 	w.cursorPosition(25, 7); cout << "LOADING...";
 	w.ShowConsoleCursor(false);
+
 	Index index;
-	//index.buildIndex("D:\\CS163_Project_Data\\CS163_Project_Data");
-	index.loadIndex();
+	if (index.checkChange("D:\\CS163_Project_Data\\CS163_Project_Data"))
+		index.buildIndex("D:\\CS163_Project_Data\\CS163_Project_Data");
+	else
+		index.loadIndex();
+	
 	synonym.loadSynonym();
+	
 	SearchResult::fileCount = index.getFileCount();
+	
 	w.cursorPosition(25, 7); cout << "			 ";
 
-	cout << clock() - d;
+//	cout << clock() - d;
 	TextField tf;
 	tf.setColumn(10);
 	tf.setMaxChar(95);
-	tf.setRow(7);
+	tf.setRow(9);
 	input(tf, YELLOW);
 	activity2( tf.getText(), index, synonym);
 	system("pause");

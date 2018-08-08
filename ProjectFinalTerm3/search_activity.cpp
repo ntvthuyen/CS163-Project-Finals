@@ -75,28 +75,35 @@ void input(TextField &tf, int color) {
 		}
 	}
 }
-void openFile(int action, Index &index, SearchResult rs) {
+void openFile(TextField tf,int action, Index &index, SearchResult rs) {
 	system("CLS");
 	View w;
-	w.setTextColor(YELLOW);
-	cout << "Enter to back..." << endl << endl;
+	w.setTextColor(GREEN);
+	cout << "Press ENTER or BACKSPACE to back..." << endl << endl;
 	ifstream file;
 	file.open(index.getFilePath(rs.fileIndex));
-	cout << "FILE PATH" <<index.getFilePath(rs.fileIndex) <<endl <<endl;
-	w.setTextColor(255);
+	w.setTextColor(GREEN);
+	cout << "FILE PATH: ";
+	w.setTextColor(YELLOW);
+	cout << index.getFilePath(rs.fileIndex) << endl;
+	w.setTextColor(GREEN);
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 	string temp;
 	int length = 0;
-	while (file >> temp) {
-		length += temp.length();
-		if (length > 76) { cout << endl; 
-		length = 0;
-		}
-		cout << temp << " ";
+	getline(file, temp);
+	w.setTextColor(LIGHTBLUE);
+	cout << temp << endl << endl;
+	w.setTextColor(255);
+	while (getline(file, temp)) {
+		cout << temp << endl;
+		if (temp.length() == 0) cout << endl;
+		//cout << temp << " ";
 	}
+	w.cursorPosition(0, 0);
 	int t;
 	while (true) {
 		t = _getch();
-		if (t == 13) {
+		if (t == 13 || t == '\b') {
 			system("CLS");
 			//_getch();
 			return;
@@ -114,39 +121,52 @@ void activity2(string text, Index &index, Synonym &synonym) {
 	tf.sketch(LIGHTBLUE);
 	tf.setText(text);
 	tf.show(YELLOW);
+	string ttext = "";
+	int a;
+	int action = 0;
 	while (true) {
-		results = processQuery(index, synonym, tf.getText());
-		lr.getList(results);
-		lr.sketch(tf.getText(), 0, index);
-		int a;
-		int action = 0;
-		lr.draw(action);
-		do {
-			a = _getch();
-			if (a == 224) {
-				int b = _getch();
-				if (b == 72) {
-					int lrl;
-					lrl = lr.getSize();
-					if (action == 0) action = lrl;
-					action = abs((action - 1) % lrl);
-					lr.draw(action);
+		if (ttext != tf.getText()) {
+			tf.cursorPosition(99, 2); cout << "Processing...";
+			results = processQuery(index, synonym, tf.getText());
+			ttext = tf.getText();
+			lr.getList(results);
+			lr.sketch(tf.getText(), 0, index);
+			action = 0;
+		}
+		
+		if (results.size() != 0) {
+			lr.draw(action);
+			do {
+				a = _getch();
+				if (a == 224) {
+					int b = _getch();
+					if (b == 72) {
+						int lrl;
+						lrl = lr.getSize();
+						if (action == 0) action = lrl;
+						action = abs((action - 1) % lrl);
+						lr.draw(action);
+					}
+					if (b == 80) {
+						int lrl;
+						lrl = lr.getSize();
+						action = (action + 1) % lrl;
+						lr.draw(action);
+					}
 				}
-				if (b == 80) {
-					int lrl;
-					lrl = lr.getSize();
-					action = (action + 1) % lrl;
-					lr.draw(action);
-				}
-			}else
-			if (a == 13) {
-				openFile(action, index, results[action]);
-				_getch();
-			}
-			else {
-				_getch();
-			}
-		} while (a == 224 || a == 13);
+				else
+					if (a == 13) {
+						openFile(tf,action, index, results[action]);
+						_getch();
+						//input(tf, YELLOW);
+						lr.sketch(tf.getText(), 0, index);
+						lr.draw(action);
+					}
+					else {
+						_getch();
+					}
+			} while (a == 224 || a == 13);
+		}
 		input(tf, YELLOW);
 	}
 }

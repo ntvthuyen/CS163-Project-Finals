@@ -85,6 +85,7 @@ public:
 	/// Return the number of files in the index
 	/// </summary>
 	int getFileCount();
+	bool checkChange(string dirPath, string inputPath = "index.txt");
 
 	/// <summary> 
 	/// Build the index by inputing all the files from directoty dir, then save the index content to outputPath
